@@ -12,6 +12,8 @@ void displayMainMenu();
 void displayCustomerMaintenanceMenu();
 
 void displayTable(std::vector<std::string> headers, std::vector<std::string> rows);
+void displayHeader(std::string header);
 
 int promptInt(std::string prompt);
 std::string promptString(std::string prompt);
+char promptChar(std::string prompt);

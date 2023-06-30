@@ -27,10 +27,16 @@ unsigned int Customer::getNumOfRentedMovies() const {
  */
 void Customer::pushRental(unsigned int movieId) {
     mRentedMoviesId.push(movieId);
+    mNumOfRentedMovies++;   
 }
 
-void Customer::popRental() {
+unsigned int Customer::popRental() {
+    unsigned int removedMovieId = mRentedMoviesId.top();
+
     mRentedMoviesId.pop();
+    mNumOfRentedMovies--;
+
+    return removedMovieId;
 }
 
 bool Customer::operator==(unsigned int id) const {

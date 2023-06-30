@@ -74,22 +74,32 @@ void displayCustomerMaintenanceMenu() {
 }
 
 void displayTable(std::vector<std::string> headers, std::vector<std::vector<std::string>> rows) {
-	Row_t tHeaders;
+	Table table;
+	Row_t tHeaders = {};
 	for (auto& header : headers) {
 		tHeaders.push_back(header);
 	}
+	table.add_row(Row_t());
 
-	Row_t tRows;
+	Row_t tRows = {};
 	for (auto& row : rows) {
 		for (auto& column : row) {
 			tRows.push_back(column);
 		}
 	}
-
-	Table table;
-	table.add_row(tHeaders);
 	table.add_row(tRows);
+	
 	std::cout << table << "\n";
+}
+
+void displayHeader(std::string header) {
+	Table tHeader;
+	tHeader.add_row(Row_t{ header });
+	tHeader[0].format()
+		.font_style({ FontStyle::bold })
+		.font_color(Color::yellow)
+		.font_align(FontAlign::center);
+	std::cout << tHeader << "\n";
 }
 
 int promptInt(std::string prompt) {
@@ -125,5 +135,23 @@ std::string promptString(std::string prompt) {
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return promptString(prompt);
+	}
+}
+
+char promptChar(std::string prompt = "") {
+	try {
+		char input;
+		std::cout << prompt;
+		std::cin >> input;
+		if (std::cin.fail()) {
+			throw std::runtime_error("Invalid input. Please try again.");
+		}
+		return input;
+	}
+	catch (std::runtime_error& e) {
+		std::cout << e.what() << "\n";
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return promptChar(prompt);
 	}
 }

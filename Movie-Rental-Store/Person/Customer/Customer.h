@@ -19,7 +19,7 @@ public:
     unsigned int getNumOfRentedMovies() const;
 
     void pushRental(unsigned int movieId);
-    void popRental();
+    unsigned int popRental();
 
 
     bool operator==(unsigned int id) const;
