@@ -60,7 +60,7 @@ void displayCustomerMaintenanceMenu() {
 	Table choices;
 	choices.add_row(Row_t{ "1", "Add New Customer" });
 	choices.add_row(Row_t{ "2", "Show Customer Details" });
-	choices.add_row(Row_t{ "3", " Return a Video" });
+	choices.add_row(Row_t{ "3", "List Of Movies Rented By Customer" });
 	choices.column(0).format()
 		.font_align(FontAlign::center);
 	choices.column(1).format()
