@@ -6,32 +6,34 @@
 #include "Person/Customer/Customer.h"
 
 int main() {
-    FileHandler fileHandler;
-    CustomerQueue customerQueue = fileHandler.readCustomersFromFile();
-    MovieLibrary movieLibrary = fileHandler.readMoviesFromFile();
+	FileHandler fileHandler;
+	CustomerQueue customerQueue = fileHandler.readCustomersFromFile();
+	MovieLibrary movieLibrary = fileHandler.readMoviesFromFile();
+
 
 	while (true) {
+		MAIN_MENU:
 		displayMainMenu();
 		switch (promptInt("Enter choice: ")) {
 		case 1: {/*TODO : PROGRAMMER 1*/} break;
 		case 2: {
 			displayHeader("RENT A MOVIE");
-			int customerId = promptInt("Enter customer ID: ");	
-			Customer *customer = customerQueue.searchCustomer(customerId);
+			int customerId = promptInt("Enter customer ID: ");
+			Customer* customer = customerQueue.searchCustomer(customerId);
 			if (customer == nullptr) {
 				std::cout << "Customer not found!" << std::endl;
 				continue;
 			}
-			
+
 			///...TODO : display customer info : LEAD PROGRAMMER
 
-			std:: cout << "Movies To Rent..." << std::endl;
+			std::cout << "Movies To Rent..." << std::endl;
 
 			while (true) {
 				std::cout << "Enter video ID: ";
 				int movieId = promptInt("");
 
-				Movie *movie = movieLibrary.searchMovie(movieId);
+				Movie* movie = movieLibrary.searchMovie(movieId);
 				if (movie == nullptr) {
 					std::cout << "Movie not found!" << std::endl;
 					continue;
@@ -41,7 +43,7 @@ int main() {
 					continue;
 				}
 
-				movie->decreaseNumOfCopies();	
+				movie->decreaseNumOfCopies();
 				customer->pushRental(movie->getId());
 
 				///...TODO : display video info : LEAD PROGRAMMER
@@ -52,33 +54,9 @@ int main() {
 					else if (choice == 'N' || choice == 'n') { goto MAIN_MENU; }
 					else { continue; }
 				}
-
-
 			}
 		} break;
-		case 3: {
-			displayHeader("RETURN A MOVIE");
-			int customerId = promptInt("Enter customer ID: ");
-			Customer *customer = customerQueue.searchCustomer(customerId);
-			if (customer == nullptr) {
-				std::cout << "Customer not found!" << std::endl;
-				continue;
-			}
-
-			///...TODO : display customer info : LEAD PROGRAMMER
-
-			std::cout << "Movies to Return..." << std::endl;
-			
-			for (int i = 0; i < customer->getNumOfRentedMovies(); i++) {
-				unsigned int customerId = customer->popRental();
-				Movie *movie = movieLibrary.searchMovie(customerId);
-				movie->increaseNumOfCopies();
-
-				///...TODO : display video info : LEAD PROGRAMMER
-			}
-
-			std::cout << "Movies successfully returned!" << std::endl;	
-		} break;
+		case 3: {/*TODO : LEAD PROGRAMMER*/} break;
 		case 4: {/*TODO : PROGRAMMER 2*/} break;
 		case 5: {/*TODO : PROGRAMMER 1*/} break;
 		case 6: {/*TODO : PROGRAMMER 2*/} break;
@@ -86,19 +64,37 @@ int main() {
 			while (true) {
 				displayCustomerMaintenanceMenu();
 				switch (promptInt("Enter choice: ")) {
-					case 1: {/*TODO : PROGRAMMER 1*/} break;
-					case 2: {/*TODO : PROGRAMMER 2*/} break;
-					case 3: {/*TODO : LEAD PROGRAMMER*/} break;
-					default:
+				case 1: {/*TODO : PROGRAMMER 1*/} break;
+				case 2: {/*TODO : PROGRAMMER 2*/} break;
+				case 3: {
+					displayHeader("RETURN A MOVIE");
+					int customerId = promptInt("Enter customer ID: ");
+					Customer* customer = customerQueue.searchCustomer(customerId);
+					if (customer == nullptr) {
+						std::cout << "Customer not found!" << std::endl;
 						continue;
+					}
+
+					///...TODO : display customer info : LEAD PROGRAMMER
+
+					std::cout << "Movies to Return..." << std::endl;
+
+					for (unsigned int i = 0; i < customer->getNumOfRentedMovies(); i++) {
+						unsigned int movieId = customer->popRental();
+						Movie* movie = movieLibrary.searchMovie(movieId);
+						movie->increaseNumOfCopies();
+
+						///...TODO : display video info : LEAD PROGRAMMER
+					};
+				} break;
+				default:
+					continue;
 				}
 			}
 		} break;
 		case 8: {/*TODO : PROGRAMMER 1*/} break;
-		default:
-			continue;
+		default: continue;
 		}
-		MAIN_MENU:
 	}
-    return 0;
+	return 0;
 }
