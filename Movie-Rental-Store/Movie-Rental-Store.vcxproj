@@ -129,10 +129,10 @@
   <ItemGroup>
     <ClCompile Include="Helper\FileHandler.cpp" />
     <ClCompile Include="Helper\StoreHelper.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\sabat\OneDrive\Documents\Visual Studio 2022\Projects\Movie-Rental-Store\Movie-Rental-Store\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\sabat\OneDrive\Documents\Visual Studio 2022\Projects\Movie-Rental-Store\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Movie-Rental-Store.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\sabat\OneDrive\Documents\Visual Studio 2022\Projects\Movie-Rental-Store\Movie-Rental-Store\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\sabat\OneDrive\Documents\Visual Studio 2022\Projects\Movie-Rental-Store\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="Movie\Movie.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\sabat\tabulate</AdditionalIncludeDirectories>
