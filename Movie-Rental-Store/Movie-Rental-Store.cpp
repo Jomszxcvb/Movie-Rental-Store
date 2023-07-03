@@ -60,6 +60,25 @@ int main() {
 			break;
 		}
 		case 3: {
+			displayHeader("RETURN A VIDEO");
+
+			int customerId = promptInt("Enter customer ID: ");
+			Customer* customer = customerQueue.searchCustomer(customerId);
+			if (customer == nullptr) {
+				std::cout << "Customer not found!" << std::endl;
+				continue;
+			}
+
+			displayTable(std::vector<std::string>{"Name: ", customer->getName()},
+				std::vector<std::vector<std::string>>{ {"Address: ", customer->getAddress()} });
+
+			std::cout << "Movies Rented..." << std::endl;
+			std::vector<std::vector<std::string>> vectRentedMoviesIdTitle;
+			for (unsigned int i = 0; i < customer->getNumOfRentedMovies(); i++) {
+				unsigned int movieId = customer->popRental();
+				vectRentedMoviesIdTitle.push_back({ "Video ID:", std::to_string(movieId)});
+			}
+			displayTable({}, vectRentedMoviesIdTitle);
 
 			break;
 		}
