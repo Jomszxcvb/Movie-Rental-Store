@@ -17,6 +17,7 @@ public:
     void setNumOfRentedMovies(unsigned int numOfRentedMovies);
 
     unsigned int getNumOfRentedMovies() const;
+    std::stack<unsigned int> getRentedMoviesId() const;
 
     void pushRental(unsigned int movieId);
     unsigned int popRental();

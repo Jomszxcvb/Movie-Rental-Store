@@ -21,6 +21,10 @@ unsigned int Customer::getNumOfRentedMovies() const {
     return mNumOfRentedMovies;
 }
 
+std::stack<unsigned int> Customer::getRentedMoviesId() const {
+	return mRentedMoviesId;
+}
+
 /**
  * @param movie The movie to push to the rental stack.
  * @note This function is used to push a movie to the rental stack.
