@@ -73,21 +73,14 @@ void displayCustomerMaintenanceMenu() {
 	std::cout << table << "\n";
 }
 
-void displayTable(std::vector<std::string> headers, std::vector<std::vector<std::string>> rows) {
+void displayTable(std::vector<std::string> header, std::vector<std::vector<std::string>> rows) {
 	Table table;
-	Row_t tHeaders = {};
-	for (auto& header : headers) {
-		tHeaders.push_back(header);
-	}
-	table.add_row(Row_t());
 
-	Row_t tRows = {};
-	for (auto& row : rows) {
-		for (auto& column : row) {
-			tRows.push_back(column);
-		}
+	table.add_row(Row_t(header.begin(), header.end()));
+
+	for (auto row : rows) {
+		table.add_row(Row_t(row.begin(), row.end()));
 	}
-	table.add_row(tRows);
 	
 	std::cout << table << "\n";
 }
