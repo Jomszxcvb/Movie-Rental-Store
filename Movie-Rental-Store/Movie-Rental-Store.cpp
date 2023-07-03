@@ -1,4 +1,5 @@
 #include "Helper/FileHandler.h"
+#include <map>
 #include <iostream>
 
 #include "Helper/StoreHelper.h"
@@ -18,6 +19,7 @@ int main() {
 		case 1: {/*TODO : PROGRAMMER 1*/} break;
 		case 2: {
 			displayHeader("RENT A MOVIE");
+
 			int customerId = promptInt("Enter customer ID: ");
 			Customer* customer = customerQueue.searchCustomer(customerId);
 			if (customer == nullptr) {
@@ -25,14 +27,14 @@ int main() {
 				continue;
 			}
 
-			///...TODO : display customer info : LEAD PROGRAMMER
+			displayTable(std::vector<std::string>{"Name: ", customer->getName()}, 
+				std::vector<std::vector<std::string>>{ {"Address: ", customer->getAddress()} });
 
 			std::cout << "Movies To Rent..." << std::endl;
 
 			while (true) {
 				std::cout << "Enter video ID: ";
 				int movieId = promptInt("");
-
 				Movie* movie = movieLibrary.searchMovie(movieId);
 				if (movie == nullptr) {
 					std::cout << "Movie not found!" << std::endl;
@@ -45,8 +47,8 @@ int main() {
 
 				movie->decreaseNumOfCopies();
 				customer->pushRental(movie->getId());
-
-				///...TODO : display video info : LEAD PROGRAMMER
+				displayTable({ "Movie Title: ", movie->getTitle() },
+					{ { "Number of Copies: ", std::to_string(movie->getNumOfCopies()) }});
 
 				while (true) {
 					char choice = promptChar("Rent another movie? (Y/N): ");
@@ -55,8 +57,12 @@ int main() {
 					else { continue; }
 				}
 			}
-		} break;
-		case 3: {/*TODO : LEAD PROGRAMMER*/} break;
+			break;
+		}
+		case 3: {
+
+			break;
+		}
 		case 4: {/*TODO : PROGRAMMER 2*/} break;
 		case 5: {/*TODO : PROGRAMMER 1*/} break;
 		case 6: {/*TODO : PROGRAMMER 2*/} break;
@@ -67,26 +73,38 @@ int main() {
 				case 1: {/*TODO : PROGRAMMER 1*/} break;
 				case 2: {/*TODO : PROGRAMMER 2*/} break;
 				case 3: {
-					displayHeader("RETURN A MOVIE");
+					displayHeader("LIST OF MOVIES RENTED BY CUSTOMER");
+
 					int customerId = promptInt("Enter customer ID: ");
 					Customer* customer = customerQueue.searchCustomer(customerId);
 					if (customer == nullptr) {
 						std::cout << "Customer not found!" << std::endl;
 						continue;
 					}
+					displayTable(std::vector<std::string>{"Name: ", customer->getName()},
+						std::vector<std::vector<std::string>>{ {"Address: ", customer->getAddress()} });
 
-					///...TODO : display customer info : LEAD PROGRAMMER
+					std::cout << "List Of Videos Rented..." << std::endl;
+					std::stack<unsigned int> stackRentedMoviesId = customer->getRentedMoviesId();
+					std::map<std::string, std::string> mapRentedMovies;
+					if (stackRentedMoviesId.empty()) {
+						std::cout << "No movies rented!" << std::endl;
+						continue;
+					}
+					while (!stackRentedMoviesId.empty()) {
+						std::map<std::string, std::string> movie;
+						movie[std::to_string(stackRentedMoviesId.top())] = movieLibrary.searchMovie(stackRentedMoviesId.top())->getTitle();
+						stackRentedMoviesId.pop();
+					}
+					
+					std::vector<std::vector<std::string>> vectRentedMoviesIdTitle;
+					for (auto& movie : mapRentedMovies) {
+						vectRentedMoviesIdTitle.push_back({ movie.first, movie.second });
+					}
+					displayTable(std::vector<std::string>{"Video ID", "Video Title"}, vectRentedMoviesIdTitle);
 
-					std::cout << "Movies to Return..." << std::endl;
-
-					for (unsigned int i = 0; i < customer->getNumOfRentedMovies(); i++) {
-						unsigned int movieId = customer->popRental();
-						Movie* movie = movieLibrary.searchMovie(movieId);
-						movie->increaseNumOfCopies();
-
-						///...TODO : display video info : LEAD PROGRAMMER
-					};
-				} break;
+					break;
+				}
 				default:
 					continue;
 				}
